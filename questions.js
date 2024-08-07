@@ -269,7 +269,6 @@ let questions = [
             }
         ]
     },
-    null,
     {
         "qcId": 1,
         "qId": 7930,
@@ -2694,14 +2693,6 @@ let questions = [
             }
         ]
     },
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
     {
         "qcId": 1,
         "qId": 8062,
@@ -2954,11 +2945,6 @@ let questions = [
             }
         ]
     },
-    null,
-    null,
-    null,
-    null,
-    null,
     {
         "qcId": 1,
         "qId": 8083,
@@ -4159,9 +4145,6 @@ let questions = [
             }
         ]
     },
-    null,
-    null,
-    null,
     {
         "qcId": 1,
         "qId": 8124,
@@ -4522,8 +4505,6 @@ let questions = [
             }
         ]
     },
-    null,
-    null,
     {
         "qcId": 1,
         "qId": 8678,
@@ -6162,13 +6143,6 @@ let questions = [
             }
         ]
     },
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
     {
         "qcId": 1,
         "qId": 8423,
@@ -7165,9 +7139,6 @@ let questions = [
             }
         ]
     },
-    null,
-    null,
-    null,
     {
         "qcId": 1,
         "qId": 9502,
@@ -20326,11 +20297,6 @@ let questions = [
             }
         ]
     },
-    null,
-    null,
-    null,
-    null,
-    null,
     {
         "qcId": 1,
         "qId": 8936,
@@ -34701,7 +34667,6 @@ let questions = [
             }
         ]
     },
-    null,
     {
         "qcId": 1,
         "qId": 8624,
@@ -34762,7 +34727,6 @@ let questions = [
             }
         ]
     },
-    null,
     {
         "qcId": 1,
         "qId": 8652,
@@ -34883,7 +34847,6 @@ let questions = [
             }
         ]
     },
-    null,
     {
         "qcId": 1,
         "qId": 8464,
@@ -35616,7 +35579,6 @@ let questions = [
             }
         ]
     },
-    null,
     {
         "qcId": 1,
         "qId": 8530,
@@ -36259,8 +36221,6 @@ let questions = [
             }
         ]
     },
-    null,
-    null,
     {
         "qcId": 1,
         "qId": 8552,
@@ -37689,9 +37649,6 @@ let questions = [
             }
         ]
     },
-    null,
-    null,
-    null,
     {
         "qcId": 1,
         "qId": 8224,

@@ -11,10 +11,10 @@
   <body>
   <div class="container">
 	<div class="row">
-		<div class="col-5">
+		<div class="col-5 col-sm-11">
 	  <div id="target">Loading...</div>
 	  </div>
-	  <div class="col-5 totals">
+	  <div class="col-5 totals col-sm-1">
 		<h2 class="text-success">0</h2>
 		<h2 class="text-danger">0</h4>
 	  </div>
@@ -25,13 +25,16 @@
 	<script id="template" type="x-tmpl-mustache">
 	{{#HasImage}}
 	 <div class="row">
-		<div class="col-7">
-		<img src="https://servisi.euprava.gov.rs/autoskole/Question/QuestionsPracticeImage?id={{qId}}&guid=e1f9edb4-6176-4e81-aa41-d3e6ee108239" class="img-thumbnail" />
+		<div class="col">
+		<img src="./img/{{qId}}.jpeg" class="img-thumbnail" />
 		</div>
 	</div>
 	{{/HasImage}}
 	<div class="row">
 		<h5>{{Text}}</h5>
+	</div>
+	<div class="row id" data-id='{{qId}}''>
+		question id: {{ qId }}
 	</div>
 	<div class="row">
 		answers: {{ ChoicesReq }}

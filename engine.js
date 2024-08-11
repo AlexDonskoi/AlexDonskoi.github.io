@@ -17,9 +17,69 @@ $(function(){
           return array;
         };
 
-     //questions = questions.slice(0,10);
-     let init = () => shuffle(questions.map(q => { q.Choices = shuffle(q.Choices||[]); return q;}));   
-     let source = [];
+
+     // questions = [{
+     //    "qId": 1,
+     //    "Text": "Q1",
+     //    "ChoicesReq": 2,
+     //    "HasImage": false,
+     //    "Choices": [
+     //        {
+     //            "Text": "Correct 1",
+     //            "isCorrect": true
+     //        },
+     //        {
+     //           "Text": "Correct 2",
+     //           "isCorrect": true
+     //       },{
+     //           "Text": "InCorrect ",
+     //           "isCorrect": false
+     //       }
+     //    ]
+     // },{
+     //      "qId": 2,
+     //      "Text": "Q2",
+     //      "ChoicesReq": 2,
+     //      "HasImage": false,
+     //      "Choices": [
+     //          {
+     //              "Text": "Correct 1",
+     //              "isCorrect": true
+     //          },
+     //          {
+     //             "Text": "Correct 2",
+     //             "isCorrect": true
+     //         },{
+     //             "Text": "InCorrect ",
+     //             "isCorrect": false
+     //         }
+     //      ]
+     //   },{
+     //      "qId": 3,
+     //      "Text": "Q3",
+     //      "ChoicesReq": 2,
+     //      "HasImage": false,
+     //      "Choices": [
+     //          {
+     //              "Text": "Correct 1",
+     //              "isCorrect": true
+     //          },
+     //          {
+     //             "Text": "Correct 2",
+     //             "isCorrect": true
+     //         },{
+     //             "Text": "InCorrect ",
+     //             "isCorrect": false
+     //         }
+     //      ]
+     //   }] 
+
+     var dictionaryQuestions = questions.reduce((acc, q) => {acc[q.qId] = q; return acc;}, {});
+     let init = () => shuffle(Object.keys(dictionaryQuestions));
+
+     let restKey = "restKey";
+     let failedKey = "failedKey";     
+     let source = (JSON.parse(localStorage.getItem(failedKey)) ||[]).concat(JSON.parse(localStorage.getItem(restKey)) ||[]);
 
      // Get the template
      var template = $('#template').html();
@@ -27,13 +87,32 @@ $(function(){
 
      let $target = $('#target');
      
+     let save = (qId, isCorrect) => {
+          if (isCorrect){
+               $badgeSuccess.html(++successCount);
+               
+
+          } else {
+               $badgeFailed.html(++failCount);
+          }
+          let failed = (JSON.parse(localStorage.getItem(failedKey)) ||[]).filter(q => q != qId);
+          if (!isCorrect){
+               failed.push(qId);
+          }
+          localStorage.setItem(failedKey, JSON.stringify(failed));
+          let rest = (JSON.parse(localStorage.getItem(restKey)) ||[]).filter(q => q != qId);
+          localStorage.setItem(restKey, JSON.stringify(rest));
+     }
       
      let showNext = () => {
           if (source.length == 0){
                source = init();
+               localStorage.setItem(restKey, JSON.stringify(source));
           }
-          let question = source.pop();
-          var html = Mustache.render(template, question);
+          let question = source.shift();
+          let targetQuestion = dictionaryQuestions[question];
+          targetQuestion.Choices = shuffle(targetQuestion.Choices||[]);
+          var html = Mustache.render(template, targetQuestion);
           $target.html(html);
      }
 
@@ -49,12 +128,7 @@ $(function(){
           })
           .on('test.done', function(_, isCorrect){
                $target.addClass("done").find('button.correct').trigger("test.show");
-               if (isCorrect){
-                    $badgeSuccess.html(++successCount);
-
-               } else {
-                    $badgeFailed.html(++failCount);
-               }
+               save($target.find(".id").data("id"), isCorrect);
           })
           .on('test.check', function(_,){
                if (!!$target.find("button.selected:not(.correct)").length){
@@ -70,8 +144,7 @@ $(function(){
           .on('test.show', 'button', function(){
                let $self = $(this);
                let isCorrect = $self.hasClass('correct');
-               let isSelected = $self.hasClass('selected');
-               $self.removeClass('btn-outline-dark').addClass(isCorrect ? (isSelected ? 'btn-success': "btn-warning") : 'btn-danger');
+               $self.removeClass('btn-outline-dark').addClass(isCorrect ? 'btn-success' : 'btn-danger');
           })
           .on('click', '#target:not(.done) button', function(){
                $(this).addClass('selected').trigger("test.show"); 
